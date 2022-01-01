@@ -53,11 +53,11 @@ static void print_detail_line(FILE* log_file, const char* log_level,
     int _strlen;
 
     if (func_name != NULL && func_name[0] != 0) {
-	    snprintf(format_buffer, LOG_FORMAT_BUFFER_SIZE, "[%s][%s](%s) %s",
-	            get_formatted_date(), log_level, func_name, log_format);
+	    snprintf(format_buffer, LOG_FORMAT_BUFFER_SIZE, "[%s](%s) %s",
+	            log_level, func_name, log_format);
 	} else {
-	    snprintf(format_buffer, LOG_FORMAT_BUFFER_SIZE, "[%s][%s] %s",
-	             get_formatted_date(), log_level, log_format);
+	    snprintf(format_buffer, LOG_FORMAT_BUFFER_SIZE, "[%s] %s",
+	            log_level, log_format);
 	}
 
 	/* Append a newline if not exist */
@@ -114,9 +114,9 @@ void start_log() {
 			    g_dest = LOG_TO_CONSOLE;
 			    PR_ERRNO("日志文件打开失败，将输出至控制台");
 			}
-			setvbuf(g_log_fp, NULL, _IOLBF, BUFSIZ);
 			break;
 	}
+	setvbuf(g_log_fp, NULL, _IOLBF, BUFSIZ);
 }
 
 void close_log() {
